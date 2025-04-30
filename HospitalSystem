@@ -1,0 +1,51 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class HospitalSystem {
+
+	private int nextPatientId = 1000;
+	private int nextDoctorId = 2000;
+	private int nextAppointmentId = 3000;
+	private int nextBillid = 4000;
+	private List<Patient> patients = new ArrayList<>();
+	private List<Doctor> doctors = new ArrayList<>();
+	private List<Appointment> appoinemnts = new ArrayList<>();
+	private List<Bill> bills = new ArrayList<>();
+	private Department departments;
+
+	public HospitalSystem() {
+	};
+
+	public void addPatient(Patient patient) {
+	}
+
+	public void deletePatient(int patientId) {
+	}
+
+	public Patient searchPatientByPateindId(int patiendId) {
+		return null;
+	}
+
+	public void addDoctor(Doctor doctor) {
+	}
+
+	public void deleteDoctor(Doctor doctor) {
+	}
+
+	public Doctor searchDoctorById(int doctorId) {
+		return null;
+	}
+
+	public Boolean scheduleAppointment(Appointment appointment) {
+		return null;
+	}
+
+	public Boolean cancelAppointmentById(int appointmentId) {
+		return null;
+	}
+
+	public Appointment searchAppointmentById(int appointmentId) {
+		return null;
+	}
+
+}
