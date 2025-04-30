@@ -1,0 +1,24 @@
+public class Doctor extends Person {
+	
+	
+	public Doctor(int id, String name, Contact contact, Gender gender, String specialization, int departmentID) {
+		super(id, name, contact, gender);
+		Specialization = specialization;
+		this.departmentID = departmentID;
+	}
+
+	String Specialization;
+	int departmentID;
+	
+	@Override
+	public void displayDetails(){
+		System.out.println("Details of Doctor");
+
+	}
+
+	@Override
+	public String toString() {  
+		return super.toString() + "Doctor [Specialization=" + Specialization + ", "
+				+ "departmentID=" + departmentID + "]";  
+	
+}
