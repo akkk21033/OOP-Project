@@ -1,24 +1,46 @@
+package HMS;
+
 public class Doctor extends Person {
-	
-	
+	String Specialization;
+	int departmentID;
+
 	public Doctor(int id, String name, Contact contact, Gender gender, String specialization, int departmentID) {
 		super(id, name, contact, gender);
 		Specialization = specialization;
 		this.departmentID = departmentID;
 	}
 
-	String Specialization;
-	int departmentID;
-	
-	@Override
-	public void displayDetails(){
-		System.out.println("Details of Doctor");
+	public String getSpecialization() {
+		return Specialization;
+	}
 
+	public void setSpecialization(String specialization) {
+		Specialization = specialization;
+	}
+
+	public int getDepartmentID() {
+		return departmentID;
+	}
+
+	public void setDepartmentID(int departmentID) {
+		this.departmentID = departmentID;
 	}
 
 	@Override
-	public String toString() {  
-		return super.toString() + "Doctor [Specialization=" + Specialization + ", "
-				+ "departmentID=" + departmentID + "]";  
-	
+	public void displayDetails() {
+		System.out.println("Doctor Details:");
+		System.out.println("ID: " + getId());
+		System.out.println("Name: " + getName());
+		System.out.println("Gender: " + getGender());
+		System.out.println("Specialization: " + Specialization);
+		System.out.println("Department ID: " + departmentID);
+		getContact().displayContactInfo();
+	}
+
+	@Override
+	public String toString() {
+		return super.toString() + "Doctor [Specialization=" + Specialization + ", " + "departmentID=" + departmentID
+				+ "]";
+
+	}
 }
