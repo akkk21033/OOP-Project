@@ -1,0 +1,6 @@
+package HMS;
+
+public enum Gender {
+	MALE, FEMALE
+
+}
