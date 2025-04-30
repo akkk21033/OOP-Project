@@ -1,3 +1,5 @@
+package HMS;
+
 public class Patient extends Person {
 
 	int age;
@@ -13,9 +15,16 @@ public class Patient extends Person {
 	
 	
 	@Override
-	public void displayDetails(){
-		System.out.println("Details of the pateint");
+	public void displayDetails() {
+		System.out.println("Patient Details:");
+		System.out.println("ID: " + getId());
+		System.out.println("Name: " + getName());
+		System.out.println("Gender: " + getGender());
+		System.out.println("Age: " + age);
+		System.out.println("Medical History: " + medicalHistory);
+		getContact().displayContactInfo();
 	}
+
 
 	
 	@Override
