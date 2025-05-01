@@ -9,7 +9,7 @@ public class HospitalSystem {
 	private int nextBillid = 4000;
 	private List<Patient> patients = new ArrayList<>();
 	private List<Doctor> doctors = new ArrayList<>();
-	private List<Appointment> appoinemnts = new ArrayList<>();
+	private List<Appointment> appointments = new ArrayList<>();
 	private List<Bill> bills = new ArrayList<>();
 	private List<Department> departments = new ArrayList<>();
 
@@ -65,15 +65,37 @@ public class HospitalSystem {
 		return null;
 	}
 
+	// Schedule if the Doctor is available at the specified time
 	public Boolean scheduleAppointment(Appointment appointment) {
-		return null;
+		for (Appointment a : appointments) {
+			if (a.getDoctorID() == appointment.getDoctorID()
+					&& a.getAppointmentDate().equals(appointment.getAppointmentDate())
+					&& a.getAppointmentStatus() != AppointmentStatus.CANCELLED)
+				// Doctor already has an appointment at this time
+				return false;
+
+		}
+		appointments.add(appointment);
+		appointment.confirmAppointment();
+		return true;
 	}
 
 	public Boolean cancelAppointmentById(int appointmentId) {
-		return null;
+		for (Appointment a : appointments) {
+			if (a.getAppointmentID() == appointmentId) {
+				a.setAppointmentStatus(AppointmentStatus.CANCELLED);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public Appointment searchAppointmentById(int appointmentId) {
+		for (Appointment a : appointments) {
+			if (a.getAppointmentID() == appointmentId) {
+				return a;
+			}
+		}
 		return null;
 	}
 
@@ -94,8 +116,8 @@ public class HospitalSystem {
 		departments.add(department);
 	}
 
-	public void assignDoctorToDepartment(int departmetnId, Doctor doctor) {
-
+	public void assignDoctorToDepartment(int departmentId, Doctor doctor) {
+		doctor.setDepartmentID(departmentId);
 	}
 
 	public void generatePatientReport() {
