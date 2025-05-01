@@ -11,28 +11,57 @@ public class HospitalSystem {
 	private List<Doctor> doctors = new ArrayList<>();
 	private List<Appointment> appoinemnts = new ArrayList<>();
 	private List<Bill> bills = new ArrayList<>();
-	private Department departments;
+	private List<Department> departments = new ArrayList<>();
 
 	public HospitalSystem() {
-	};
+	}
 
 	public void addPatient(Patient patient) {
+		patient.setId(nextPatientId);
+		patients.add(patient);
+		nextPatientId++;
+
 	}
 
 	public void deletePatient(int patientId) {
+		for (int i = 0; i < patients.size(); i++) {
+			if (patients.get(i).getId() == patientId) {
+				patients.remove(i);
+				break;
+			}
+		}
 	}
 
-	public Patient searchPatientByPateindId(int patiendId) {
+	public Patient searchPatientByPateindId(int patientId) {
+		for (int i = 0; i < patients.size(); i++) {
+			if (patients.get(i).getId() == patientId) {
+				return patients.get(i);
+			}
+		}
 		return null;
 	}
 
 	public void addDoctor(Doctor doctor) {
+		doctor.setId(nextDoctorId);
+		doctors.add(doctor);
+		nextDoctorId++;
 	}
 
-	public void deleteDoctor(Doctor doctor) {
+	public void deleteDoctor(int doctorId) {
+		for (int i = 0; i < doctors.size(); i++) {
+			if (doctors.get(i).getId() == doctorId) {
+				doctors.remove(i);
+				break;
+			}
+		}
 	}
 
 	public Doctor searchDoctorById(int doctorId) {
+		for (int i = 0; i < patients.size(); i++) {
+			if (doctors.get(i).getId() == doctorId) {
+				return doctors.get(i);
+			}
+		}
 		return null;
 	}
 
@@ -46,6 +75,55 @@ public class HospitalSystem {
 
 	public Appointment searchAppointmentById(int appointmentId) {
 		return null;
+	}
+
+	public void generateBill(Bill bill) {
+
+	}
+
+	public Bill searchBillById(int billId) {
+		return null;
+	}
+
+	public double caclualtePayment(int billId) {
+		return billId;
+
+	}
+
+	public void addDepartment(Department department) {
+		departments.add(department);
+	}
+
+	public void assignDoctorToDepartment(int departmetnId, Doctor doctor) {
+
+	}
+
+	public void generatePatientReport() {
+
+	}
+
+	public void generateDoctorReport() {
+
+	}
+
+	public void generateAppointmentReport() {
+
+	}
+
+	public void generateBillingReport() {
+
+	}
+
+	public void generateDepartmentReport() {
+
+	}
+
+	public void saveDataToFiles() {
+
+	}
+
+	public void loadDataFromFiles() {
+
 	}
 
 }
