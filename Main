@@ -1,0 +1,171 @@
+
+package HMS;
+
+import java.util.Date;
+import java.util.Scanner;
+import java.text.SimpleDateFormat;
+
+public class MainApp {
+    private static HospitalSystem hospitalSystem = new HospitalSystem();
+    private static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int choice = -1;
+
+        while (choice != 10) {
+            printMenu();
+            try {
+                choice = Integer.parseInt(scanner.nextLine());
+            } catch (Exception e) {
+                System.out.println("Invalid input. Try again.");
+                continue;
+            }
+
+            switch (choice) {
+                case 1: addPatient(); break;
+                case 2: addDoctor(); break;
+                case 3: addDepartment(); break;
+                case 4: assignDoctorToDepartment(); break;
+                case 5: scheduleAppointment(); break;
+                case 6: generateBill(); break;
+                case 7: showReports(); break;
+                case 8: showAllDoctors(); break;
+                case 9: showAllDepartments(); break;
+                case 10: System.out.println("Exiting..."); break;
+                default: System.out.println("Invalid choice. Try again.");
+            }
+        }
+    }
+
+    private static void printMenu() {
+        System.out.println("===== Hospital Management Menu =====");
+        System.out.println("1. Add Patient");
+        System.out.println("2. Add Doctor");
+        System.out.println("3. Add Department");
+        System.out.println("4. Assign Doctor to Department");
+        System.out.println("5. Schedule Appointment");
+        System.out.println("6. Generate Bill");
+        System.out.println("7. Show Reports");
+        System.out.println("8. Show All Doctors");
+        System.out.println("9. Show All Departments");
+        System.out.println("10. Save and Exit");
+        System.out.print("Enter your choice: ");
+    }
+
+    private static void addPatient() {
+        System.out.print("Enter patient name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter gender (MALE/FEMALE): ");
+        Gender gender = Gender.valueOf(scanner.nextLine().toUpperCase());
+        System.out.print("Enter age: ");
+        int age = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter medical history: ");
+        String history = scanner.nextLine();
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter phone number: ");
+        String phone = scanner.nextLine();
+
+        Contact contact = new Contact(email, phone);
+        Patient patient = new Patient(0, name, contact, gender, age, history);
+        hospitalSystem.addPatient(patient);
+        System.out.println("Patient added with ID: " + patient.getId());
+    }
+
+    private static void addDoctor() {
+        System.out.print("Enter doctor name: ");
+        String name = scanner.nextLine();
+        System.out.print("Enter gender (MALE/FEMALE): ");
+        Gender gender = Gender.valueOf(scanner.nextLine().toUpperCase());
+        System.out.print("Enter specialization: ");
+        String specialization = scanner.nextLine();
+        System.out.print("Enter email: ");
+        String email = scanner.nextLine();
+        System.out.print("Enter phone number: ");
+        String phone = scanner.nextLine();
+        System.out.print("Enter department ID: ");
+        int departmentId = Integer.parseInt(scanner.nextLine());
+
+        Contact contact = new Contact(email, phone);
+        Doctor doctor = new Doctor(0, name, contact, gender, specialization, departmentId);
+        hospitalSystem.addDoctor(doctor);
+        System.out.println("Doctor added with ID: " + doctor.getId());
+    }
+
+    private static void addDepartment() {
+        System.out.print("Enter department ID: ");
+        int departmentId = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter department name: ");
+        String departmentName = scanner.nextLine();
+        Department department = new Department(departmentId, departmentName);
+        hospitalSystem.addDepartment(department);
+        System.out.println("Department added successfully.");
+    }
+
+    private static void assignDoctorToDepartment() {
+        System.out.print("Enter doctor ID: ");
+        int doctorId = Integer.parseInt(scanner.nextLine());
+        System.out.print("Enter department ID: ");
+        int departmentId = Integer.parseInt(scanner.nextLine());
+        Doctor doctor = hospitalSystem.searchDoctorById(doctorId);
+        if (doctor != null) {
+            hospitalSystem.assignDoctorToDepartment(departmentId, doctor);
+            System.out.println("Doctor assigned to department.");
+        } else {
+            System.out.println("Doctor not found.");
+        }
+    }
+
+    private static void scheduleAppointment() {
+        try {
+            System.out.print("Enter patient ID: ");
+            int patientId = Integer.parseInt(scanner.nextLine());
+            System.out.print("Enter doctor ID: ");
+            int doctorId = Integer.parseInt(scanner.nextLine());
+            System.out.print("Enter appointment date (yyyy-MM-dd): ");
+            String dateStr = scanner.nextLine();
+            Date appointmentDate = new SimpleDateFormat("yyyy-MM-dd").parse(dateStr);
+
+            Appointment appointment = new Appointment(0, patientId, doctorId, appointmentDate, AppointmentStatus.UNKNOWN);
+            boolean success = hospitalSystem.scheduleAppointment(appointment);
+            if (success) {
+                System.out.println("Appointment scheduled successfully.");
+            } else {
+                System.out.println("Doctor not available at this time.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error scheduling appointment: " + e.getMessage());
+        }
+    }
+
+    private static void generateBill() {
+        System.out.println("Billing system not yet implemented.");
+    }
+
+    private static void showReports() {
+        System.out.println("1. Patient Report");
+        System.out.println("2. Doctor Report");
+        System.out.println("3. Appointment Report");
+        System.out.println("4. Billing Report");
+        System.out.println("5. Department Report");
+        System.out.print("Select report type: ");
+        int reportChoice = Integer.parseInt(scanner.nextLine());
+
+        switch (reportChoice) {
+            case 1: hospitalSystem.generatePatientReport(); break;
+            case 2: hospitalSystem.generateDoctorReport(); break;
+            case 3: hospitalSystem.generateAppointmentReport(); break;
+            case 4: hospitalSystem.generateBillingReport(); break;
+            case 5: hospitalSystem.generateDepartmentReport(); break;
+            default: System.out.println("Invalid report type.");
+        }
+    }
+
+    private static void showAllDoctors() {
+        hospitalSystem.generateDoctorReport();
+    }
+
+    private static void showAllDepartments() {
+        hospitalSystem.generateDepartmentReport();
+    }
+}
