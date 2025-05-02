@@ -121,15 +121,25 @@ public class HospitalSystem {
 	}
 
 	public void generatePatientReport() {
-
+		for (Patient p : patients) {
+			p.displayDetails();
+			System.out.println();
+		}
 	}
 
 	public void generateDoctorReport() {
-
+		
+		for(Doctor d : doctors) {
+			d.displayDetails();
+			System.out.println();
+		}
 	}
 
 	public void generateAppointmentReport() {
-
+		for(Appointment a : appointments) {
+			a.toString();
+			System.out.println();
+		}
 	}
 
 	public void generateBillingReport() {
@@ -137,7 +147,10 @@ public class HospitalSystem {
 	}
 
 	public void generateDepartmentReport() {
-
+		for (Department d: departments) {
+			d.displayDepartmentetails();
+			System.out.println();
+		}
 	}
 
 	public void saveDataToFiles() {
@@ -149,3 +162,4 @@ public class HospitalSystem {
 	}
 
 }
+
